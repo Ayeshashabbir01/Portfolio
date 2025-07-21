@@ -83,7 +83,59 @@
         <h3 class="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo">
             Hi I'm Ayesha Shabbir <img src="./images/hand-icon.png" alt="" class="w-6"></h3>
         <h1 class="text-3xl sm:text-6xl lg:text-[66px] font-Ovo">
-            Frontend Web Developer </h1>
+    <span id="typing-text"></span>
+</h1>
+
+<style>
+  /* Blinking cursor */
+  #typing-text::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+</style>
+
+<script>
+  const textArray = ["Frontend Web Developer", "Graphic Designer"];
+  let textIndex = 0;
+  let charIndex = 0;
+  let currentText = '';
+  let isDeleting = false;
+  const typingSpeed = 100;
+  const erasingSpeed = 60;
+  const delayBetweenWords = 1000;
+
+  function type() {
+    const element = document.getElementById("typing-text");
+
+    if (!isDeleting && charIndex < textArray[textIndex].length) {
+      currentText += textArray[textIndex].charAt(charIndex);
+      charIndex++;
+      element.textContent = currentText;
+      setTimeout(type, typingSpeed);
+    } else if (isDeleting && charIndex > 0) {
+      currentText = currentText.slice(0, -1);
+      charIndex--;
+      element.textContent = currentText;
+      setTimeout(type, erasingSpeed);
+    } else {
+      if (!isDeleting) {
+        isDeleting = true;
+        setTimeout(type, delayBetweenWords);
+      } else {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % textArray.length;
+        setTimeout(type, typingSpeed);
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", type);
+</script>
+
         <p class="max-w-2xl mx-auto font-Ovo">I am a final year student of Data Science and a self tought passionate Frontend Developer and Graphic Designer in Pakistan and  I have 6 months internship at MHB Pvt.Ltd and still working with them. </p>
 
         <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
